@@ -4,15 +4,21 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MaterialModule } from './material.module';
+import { TopBarComponent } from './top-bar/top-bar.component';
+
+
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent,
+    TopBarComponent
+   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent, TopBarComponent ]
 })
 export class AppModule { }
