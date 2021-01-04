@@ -9,11 +9,11 @@
       <li>
         Authentication and session management (just please, don't put sensitive
         information, I'm still not confident in the security details.)
-        <div class="TextWithLeftMargin">
+        <div class="textWithLeftMargin">
           By entering with "admin/{{ "{" }}username{{ "}" }}", you will be
           redirected to an admin panel where you can insert new "products".
         </div>
-        <div class="TextWithLeftMargin">
+        <div class="textWithLeftMargin">
           Be aware that after about 5 minutes from the last insertion, the
           database will automatically reset.
         </div>
@@ -22,7 +22,12 @@
     </ul>
   </div>
 
-  <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
+  <div mat-dialog-actions class="buttonContainer">
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Close</button>
+    <mat-checkbox
+      [(ngModel)]="data"
+      labelPosition="before">
+      Don't show it again:
+    </mat-checkbox>
   </div>
 </div>

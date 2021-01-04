@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WelcomeMessageComponent } from './welcome-message.component';
+import { WelcomeMessageDialog } from './welcome-message.dialog';
 
 describe( 'WelcomeMessageComponent', () => {
-  let component: WelcomeMessageComponent;
-  let fixture: ComponentFixture<WelcomeMessageComponent>;
+  let component: WelcomeMessageDialog;
+  let fixture: ComponentFixture<WelcomeMessageDialog>;
 
   beforeEach( async( () => {
     TestBed.configureTestingModule( {
-      declarations: [ WelcomeMessageComponent ]
+      declarations: [ WelcomeMessageDialog ]
     } )
       .compileComponents();
   } ) );
 
   beforeEach( () => {
-    fixture = TestBed.createComponent( WelcomeMessageComponent );
+    fixture = TestBed.createComponent( WelcomeMessageDialog );
     component = fixture.componentInstance;
     fixture.detectChanges();
   } );

@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WelcomeMessageComponent } from './welcome-message.component';
+import { WelcomeMessageDialog } from './dialog/welcome-message.dialog';
 import { MaterialModule } from '../material.module';
+import { FormsModule } from '@angular/forms';
+import { WelcomeMessageComponent } from './component/welcome-message.component';
 
 @NgModule( {
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
-  declarations: [ WelcomeMessageComponent ],
+  declarations: [
+    WelcomeMessageDialog,
+    WelcomeMessageComponent
+  ],
   exports: [ WelcomeMessageComponent ]
 } )
 export class WelcomeMessageModule { }

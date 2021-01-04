@@ -1,0 +1,7 @@
+.textWithLeftMargin {
+  margin-left: 2em;
+}
+
+.buttonContainer {
+  justify-content: space-between
+}

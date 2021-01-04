@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { WelcomeMessageComponent } from './welcome-message/welcome-message.component';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +6,10 @@ import { WelcomeMessageComponent } from './welcome-message/welcome-message.compo
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor ( public dialog: MatDialog ) { }
+
+  constructor () { }
 
   ngOnInit (): void {
-    this.dialog.open( WelcomeMessageComponent );
   }
 
 }
