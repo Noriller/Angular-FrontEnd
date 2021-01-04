@@ -1,0 +1,28 @@
+<div>
+  <h1 mat-dialog-title>
+    Hi, my name is Bruno and this is my portfolio website made in Angular with Angular Material.
+  </h1>
+
+  <div mat-dialog-content>
+    What I did in here?
+    <ul>
+      <li>
+        Authentication and session management (just please, don't put sensitive
+        information, I'm still not confident in the security details.)
+        <div class="TextWithLeftMargin">
+          By entering with "admin/{{ "{" }}username{{ "}" }}", you will be
+          redirected to an admin panel where you can insert new "products".
+        </div>
+        <div class="TextWithLeftMargin">
+          Be aware that after about 5 minutes from the last insertion, the
+          database will automatically reset.
+        </div>
+      </li>
+      <li>You can browse the "products" and finish a "transaction".</li>
+    </ul>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</div>
