@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopBarComponent } from './top-bar.component';
+import { ProductListComponent } from './product-list.component';
 import { MaterialModule } from '../material-module/material.module';
 
 @NgModule( {
+  declarations: [
+    ProductListComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule
   ],
-  declarations: [ TopBarComponent ],
-  exports: [ TopBarComponent ]
+  exports: [ ProductListComponent ]
 } )
-export class TopBarModule { }
+export class ProductListModule { }
