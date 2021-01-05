@@ -1,16 +1,22 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import Product from './product';
+import { ProductListService } from './product-list.service';
 
 @Component( {
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: [ './product-list.component.css' ],
-  changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class ProductListComponent implements OnInit {
 
   step = 0;
+  productList: Observable<Product[]>;
 
-  constructor () { }
+  constructor ( private service: ProductListService ) {
+    this.productList = this.service.getJSON();
+  }
 
   ngOnInit (): void {
   }

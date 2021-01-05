@@ -1,7 +1,6 @@
 <div class="container">
-
   <mat-accordion
-    *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; index as index"
+    *ngFor="let product of productList | async | slice:0:10; index as index"
     class="example-headers-align"
   >
     <mat-expansion-panel
@@ -9,22 +8,45 @@
       (opened)="setStep(index)"
       hideToggle
     >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ index }}
-          </mat-panel-title>
-          <mat-panel-description>
-            Type your name and age
-            <mat-icon>account_circle</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Name: {{ product.productName }}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ product.productPrice | currency }}
+          <img
+          src="{{ product.image }}"
+          class="product-img"
+          />
+          {{ product.productDescription | slice:0:50 }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-        <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()" *ngIf="index !== 0">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()" *ngIf="index !== 10">Next</button>
-        </mat-action-row>
+      <div>
+        {{ product.productDescription }}
+      </div>
+      <div>
+        <img src="{{ product.image }}" alt="{{ product.productName }}" />
+      </div>
 
+      <mat-action-row>
+        <button
+          mat-button
+          color="warn"
+          (click)="prevStep()"
+          *ngIf="index !== 0"
+        >
+          Previous
+        </button>
+        <button
+          mat-button
+          color="primary"
+          (click)="nextStep()"
+          *ngIf="index !== 10"
+        >
+          Next
+        </button>
+      </mat-action-row>
     </mat-expansion-panel>
-
   </mat-accordion>
 </div>
