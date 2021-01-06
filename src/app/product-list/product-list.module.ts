@@ -4,6 +4,8 @@ import { ProductListComponent } from './product-list.component';
 import { MaterialModule } from '../material-module/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductListService } from './product-list.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule( {
   declarations: [
@@ -12,7 +14,9 @@ import { ProductListService } from './product-list.service';
   imports: [
     CommonModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    ScrollingModule,
+    InfiniteScrollModule
   ],
   exports: [ ProductListComponent ],
   providers: [ ProductListService ]

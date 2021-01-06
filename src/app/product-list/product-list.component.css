@@ -3,6 +3,14 @@
   flex-basis: 0;
 }
 
+.mat-expansion-panel-header {
+  min-height: 150px
+}
+
+.mat-grid-list {
+  position: unset;
+}
+
 .example-headers-align .mat-expansion-panel-header-description {
   justify-content: space-between;
   align-items: center;
@@ -19,5 +27,10 @@
 
 .product-img {
   border-radius: 80%;
-  height: 5%
+  max-height: 120px
+}
+
+.cdk-virtual-scroll-viewport {
+  overflow: unset;
+  contain: unset
 }

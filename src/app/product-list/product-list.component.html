@@ -1,52 +1,63 @@
 <div class="container">
   <mat-accordion
-    *ngFor="let product of productList | async | slice:0:10; index as index"
     class="example-headers-align"
+    infinite-scroll
+    [alwaysCallback]="true"
+    [infiniteScrollThrottle]="300"
+    (scrolled)="onScrollDown()"
   >
-    <mat-expansion-panel
-      [expanded]="step === index"
-      (opened)="setStep(index)"
-      hideToggle
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Name: {{ product.productName }}
-        </mat-panel-title>
-        <mat-panel-description>
-          {{ product.productPrice | currency }}
-          <img
-          src="{{ product.image }}"
-          class="product-img"
-          />
-          {{ product.productDescription | slice:0:50 }}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+    <ng-container *ngFor="let product of productList; index as index">
+      <mat-expansion-panel
+        [expanded]="step === index"
+        (opened)="setStep(index)"
+        hideToggle
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-description>
+            <mat-grid-list cols="3" rowHeight="140px">
+              <mat-grid-tile>
+                <mat-grid-list cols="1" rowHeight="70px">
+                  <mat-grid-tile rowspan="1">
+                    {{ product.productName }}
+                  </mat-grid-tile>
+                  <mat-grid-tile rowspan="1">
+                    {{ product.productPrice | currency }}
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                {{ product.productDescription }}
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <img src="{{ product.image }}" class="product-img" />
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-      <div>
-        {{ product.productDescription }}
-      </div>
-      <div>
-        <img src="{{ product.image }}" alt="{{ product.productName }}" />
-      </div>
+        <ng-template matExpansionPanelContent>
+          <div>
+            {{ product.productDescription }}
+          </div>
+          <div>
+            <img src="{{ product.image }}" alt="{{ product.productName }}" />
+          </div>
 
-      <mat-action-row>
-        <button
-          mat-button
-          color="warn"
-          (click)="prevStep()"
-          *ngIf="index !== 0"
-        >
-          Previous
-        </button>
-        <button
-          mat-button
-          color="primary"
-          (click)="nextStep()"
-          *ngIf="index !== 10"
-        >
-          Next
-        </button>
-      </mat-action-row>
-    </mat-expansion-panel>
+          <mat-action-row>
+            <button
+              mat-button
+              color="warn"
+              (click)="prevStep()"
+              *ngIf="index == 0"
+            >
+              Previous
+            </button>
+            <button mat-button color="primary" (click)="nextStep()">
+              Next
+            </button>
+          </mat-action-row>
+        </ng-template>
+      </mat-expansion-panel>
+    </ng-container>
   </mat-accordion>
 </div>

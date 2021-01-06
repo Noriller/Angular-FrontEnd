@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import Product from './product';
 import { ProductListService } from './product-list.service';
 
@@ -8,17 +6,22 @@ import { ProductListService } from './product-list.service';
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: [ './product-list.component.css' ],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 } )
 export class ProductListComponent implements OnInit {
 
-  step = 0;
-  productList: Observable<Product[]>;
+  step: number = null;
+  totalList: Product[];
+  productList: Product[];
 
   constructor ( private service: ProductListService ) {
-    this.productList = this.service.getJSON();
   }
 
   ngOnInit (): void {
+    this.service.getJSON().subscribe( res => {
+      this.totalList = res;
+      this.productList = this.totalList.slice( 0, 30 );
+    } );
   }
 
   setStep ( index: number ) {
@@ -31,6 +34,11 @@ export class ProductListComponent implements OnInit {
 
   prevStep () {
     this.step--;
+  }
+
+  onScrollDown () {
+    const len = this.productList.length;
+    this.productList = this.totalList.slice( 0, len + 10 );
   }
 
 }
