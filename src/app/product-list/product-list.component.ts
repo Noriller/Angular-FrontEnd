@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Datasource, IDatasource } from 'ngx-ui-scroll';
+import { BehaviorSubject, from, fromEvent, Observable, Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProductListService } from './product-list.service';
 
 @Component( {
@@ -11,28 +14,22 @@ export class ProductListComponent implements OnInit {
 
   step: number = null;
   maxSize: number;
-  datasource: IDatasource;
+  subject = new Subject();
+  inputValue = '';
 
   constructor ( private service: ProductListService ) {
-    this.datasource = new Datasource( {
-      get: ( index, count ) => this.service.getProducts( index, count )
-      , settings: {
-        windowViewport: true,
-        infinite: true
-      }
-    } );
   }
 
-  async ngOnInit () {
-    this.maxSize = await this.service.getMaxSize();
-    const scrollSettings = {
+  datasource = new Datasource( {
+    get: ( index, count ) => this.service.getProducts( index, count )
+    , settings: {
       windowViewport: true,
-      startIndex: Number( 0 ),
-      minIndex: Number( 0 ),
-      maxIndex: Number( this.maxSize ),
-      infinite: true
-    };
-    this.datasource.adapter.reset( { settings: scrollSettings } );
+    }
+  } );
+
+  async ngOnInit () {
+    this.setInputSubject();
+    await this.resetInfiniteScroll();
   }
 
   setStep ( index: number ) {
@@ -55,4 +52,45 @@ export class ProductListComponent implements OnInit {
     return index === this.maxSize;
   }
 
+  hasElements () {
+    return this.maxSize > 0;
+  }
+
+  clearSearch () {
+    this.inputValue = '';
+    this.subject.next();
+  }
+
+  search ( ev ) {
+    const searchText = ev;
+    this.subject.next( searchText );
+  }
+
+  private setInputSubject () {
+    this.subject.pipe(
+      debounceTime( 500 ),
+      distinctUntilChanged()
+    ).subscribe( () => this.searchValue() );
+  }
+
+  private async searchValue () {
+    this.service.pattern.next( this.inputValue );
+    await this.resetInfiniteScroll();
+  }
+
+  private async resetInfiniteScroll () {
+    const settings = await this.scrollSettings();
+    this.datasource.adapter.reset( { settings } );
+  }
+
+  private async scrollSettings () {
+    this.maxSize = await this.service.getMaxSize();
+    return {
+      windowViewport: true,
+      startIndex: Number( 0 ),
+      minIndex: Number( 0 ),
+      maxIndex: Number( this.maxSize ),
+      // infinite: true
+    };
+  }
 }

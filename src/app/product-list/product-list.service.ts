@@ -1,17 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import Product from './product';
+import { ProductListComponent } from './product-list.component';
 
 @Injectable()
 export class ProductListService {
   private _jsonURL = 'assets/fakeProducts.json';
+  pattern = new BehaviorSubject( '' );
 
   constructor ( private http: HttpClient ) {
   }
 
   private getJSON (): Observable<Product[]> {
-    return this.http.get<Product[]>( this._jsonURL );
+    return this.http.get<Product[]>( this._jsonURL )
+      .pipe(
+        map( ( res ) => {
+          const searchValue = this.pattern.value;
+          return res.filter( ( value ) => this.filterValue( value, searchValue ) );
+        } ) );
   }
 
   public getMaxSize () {
@@ -35,4 +43,11 @@ export class ProductListService {
       } );
   }
 
+  private filterValue ( value: Product, search: string ): boolean {
+    const description = value.productDescription.toLowerCase().indexOf( search ) !== -1;
+    const name = value.productName.toLowerCase().indexOf( search ) !== -1;
+    const price = value.productPrice.toString().indexOf( search ) !== -1;
+
+    return description || name || price;
+  }
 }

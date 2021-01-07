@@ -5,6 +5,7 @@ import { MaterialModule } from '../material-module/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductListService } from './product-list.service';
 import { UiScrollModule } from 'ngx-ui-scroll';
+import { FormsModule } from '@angular/forms';
 @NgModule( {
   declarations: [
     ProductListComponent,
@@ -13,7 +14,8 @@ import { UiScrollModule } from 'ngx-ui-scroll';
     CommonModule,
     MaterialModule,
     HttpClientModule,
-    UiScrollModule
+    UiScrollModule,
+    FormsModule
   ],
   exports: [ ProductListComponent ],
   providers: [ ProductListService ]
