@@ -1,12 +1,8 @@
 <div class="container">
   <mat-accordion
     class="example-headers-align"
-    infinite-scroll
-    [alwaysCallback]="true"
-    [infiniteScrollThrottle]="300"
-    (scrolled)="onScrollDown()"
   >
-    <ng-container *ngFor="let product of productList; index as index">
+    <ng-container *uiScroll="let product of datasource; index as index">
       <mat-expansion-panel
         [expanded]="step === index"
         (opened)="setStep(index)"
@@ -17,6 +13,7 @@
             <mat-grid-list cols="3" rowHeight="140px">
               <mat-grid-tile>
                 <mat-grid-list cols="1" rowHeight="70px">
+                  {{index}}
                   <mat-grid-tile rowspan="1">
                     {{ product.productName }}
                   </mat-grid-tile>
@@ -29,7 +26,7 @@
                 {{ product.productDescription }}
               </mat-grid-tile>
               <mat-grid-tile>
-                <img src="{{ product.image }}" class="product-img" />
+                <!-- <img src="{{ product.image }}" class="product-img" /> -->
               </mat-grid-tile>
             </mat-grid-list>
           </mat-panel-description>
@@ -40,7 +37,7 @@
             {{ product.productDescription }}
           </div>
           <div>
-            <img src="{{ product.image }}" alt="{{ product.productName }}" />
+            <!-- <img src="{{ product.image }}" alt="{{ product.productName }}" /> -->
           </div>
 
           <mat-action-row>
@@ -48,11 +45,16 @@
               mat-button
               color="warn"
               (click)="prevStep()"
-              *ngIf="index == 0"
+              *ngIf="!isFirst(index)"
             >
               Previous
             </button>
-            <button mat-button color="primary" (click)="nextStep()">
+            <button
+              mat-button
+              color="primary"
+              (click)="nextStep()"
+              *ngIf="!isLast(index)"
+              >
               Next
             </button>
           </mat-action-row>
