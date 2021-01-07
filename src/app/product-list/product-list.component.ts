@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IDatasource } from 'ngx-ui-scroll';
-import { from } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import Product from './product';
+import { Datasource, IDatasource } from 'ngx-ui-scroll';
 import { ProductListService } from './product-list.service';
+
 @Component( {
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -11,27 +9,30 @@ import { ProductListService } from './product-list.service';
 } )
 export class ProductListComponent implements OnInit {
 
-  page = 0;
   step: number = null;
-  productList: Product[] = [];
   maxSize: number;
   datasource: IDatasource;
 
   constructor ( private service: ProductListService ) {
-    this.datasource = {
-      get: ( index, count ) =>
-        this.service.getProducts( index, count )
+    this.datasource = new Datasource( {
+      get: ( index, count ) => this.service.getProducts( index, count )
       , settings: {
         windowViewport: true,
-        startIndex: 0,
-        minIndex: 0,
-        maxIndex: this.maxSize - 1,
+        infinite: true
       }
-    };
+    } );
   }
 
   async ngOnInit () {
     this.maxSize = await this.service.getMaxSize();
+    const scrollSettings = {
+      windowViewport: true,
+      startIndex: Number( 0 ),
+      minIndex: Number( 0 ),
+      maxIndex: Number( this.maxSize ),
+      infinite: true
+    };
+    this.datasource.adapter.reset( { settings: scrollSettings } );
   }
 
   setStep ( index: number ) {
@@ -51,7 +52,7 @@ export class ProductListComponent implements OnInit {
   }
 
   isLast ( index: number ) {
-    return index === ( this.productList.length - 1 );
+    return index === this.maxSize;
   }
 
 }

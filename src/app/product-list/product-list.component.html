@@ -13,7 +13,6 @@
             <mat-grid-list cols="3" rowHeight="140px">
               <mat-grid-tile>
                 <mat-grid-list cols="1" rowHeight="70px">
-                  {{index}}
                   <mat-grid-tile rowspan="1">
                     {{ product.productName }}
                   </mat-grid-tile>
@@ -26,7 +25,7 @@
                 {{ product.productDescription }}
               </mat-grid-tile>
               <mat-grid-tile>
-                <!-- <img src="{{ product.image }}" class="product-img" /> -->
+                <img src="{{ product.image }}" class="product-img" />
               </mat-grid-tile>
             </mat-grid-list>
           </mat-panel-description>
@@ -37,7 +36,7 @@
             {{ product.productDescription }}
           </div>
           <div>
-            <!-- <img src="{{ product.image }}" alt="{{ product.productName }}" /> -->
+            <img src="{{ product.image }}" alt="{{ product.productName }}" />
           </div>
 
           <mat-action-row>
