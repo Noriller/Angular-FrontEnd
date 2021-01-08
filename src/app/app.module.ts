@@ -3,14 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module/material.module';
+import { ProductListModule } from './product-list/product-list.module';
 import { TopBarModule } from './top-bar/top-bar.module';
 import { WelcomeMessageModule } from './welcome-message/welcome-message.module';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductListModule } from './product-list/product-list.module';
+import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
+import { AppRoutingModule } from './app-routing-module.module';
+import { NotFoundPageModule } from './not-found-page/not-found-page.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,6 +21,9 @@ import { ProductListModule } from './product-list/product-list.module';
     MaterialModule,
     WelcomeMessageModule,
     ProductListModule,
+    ShoppingCartModule,
+    AppRoutingModule,
+    NotFoundPageModule,
   ],
   providers: [],
   bootstrap: [ AppComponent ],
