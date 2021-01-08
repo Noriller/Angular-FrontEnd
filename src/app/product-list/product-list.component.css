@@ -23,6 +23,7 @@
 .container {
   max-width: 70%;
   margin: auto;
+  margin-top: 64px
 }
 
 .product-img {
@@ -38,4 +39,17 @@
 .example-form-field{
   margin: 10px 0 10px 0;
   width: 100%;
+}
+
+.mat-action-row{
+  justify-content: space-between;
+  padding: 16px 8px
+}
+
+.mat-action-row button:first-child{
+  margin-left: unset;
+}
+
+.hidden{
+  visibility: hidden
 }

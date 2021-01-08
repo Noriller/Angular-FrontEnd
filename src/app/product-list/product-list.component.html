@@ -34,7 +34,7 @@
                 {{ product.productDescription }}
               </mat-grid-tile>
               <mat-grid-tile>
-                <img src="{{ product.image }}" class="product-img" />
+                <img src="{{ product.image }}" class="product-img" alt="{{ product.productName }}" />
               </mat-grid-tile>
             </mat-grid-list>
           </mat-panel-description>
@@ -53,10 +53,18 @@
               mat-button
               color="warn"
               (click)="prevStep()"
-              *ngIf="!isFirst(index)"
+              [ngClass]="{'hidden': isFirst(index)}"
             >
               Previous
             </button>
+
+            <button mat-flat-button color="accent">
+              Add to Cart
+              <span class="material-icons">
+                add_shopping_cart
+              </span>
+            </button>
+
             <button
               mat-button
               color="primary"
