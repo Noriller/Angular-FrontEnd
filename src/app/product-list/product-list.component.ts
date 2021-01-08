@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit {
   }
 
   hasElements () {
-    return this.maxSize > 0;
+    return this.maxSize ? this.maxSize > 0 : true;
   }
 
   clearSearch () {
