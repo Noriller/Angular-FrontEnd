@@ -1,0 +1,70 @@
+<div>
+  <mat-card class="example-card">
+    <mat-card-header class="flex-row">
+      <img
+        mat-card-avatar
+        src="{{ image }}"
+        alt="Product avatar"
+        class="example-header-image"
+      />
+      <mat-card-title>{{ name | uppercase }}</mat-card-title>
+      <mat-card-subtitle>{{ price | currency }}</mat-card-subtitle>
+      <div class="values">
+        <div class="flex-column flex-grow quantity">
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity: </mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="99"
+              [(ngModel)]="quantity"
+              (change)="quantity ? null : tooltip.show()"
+            />
+            <div
+              #tooltip="matTooltip"
+              matTooltip="Items with 0 quantity will be removed from your cart."
+            ></div>
+          </mat-form-field>
+        </div>
+        <div class="flex-column flex-grow total">
+          <div>Total:</div>
+          <div>{{ price * quantity | currency }}</div>
+        </div>
+        <div class="flex-column flex-grow">
+          <button
+            mat-mini-fab
+            color="accent"
+            matSuffix
+            aria-label="collapsible"
+            (click)="collapsed = !collapsed"
+          >
+            <mat-icon>{{ collapsed ? "expand_more" : "expand_less" }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-header>
+    <div class="collapsible-content" *ngIf="!collapsed">
+      <img mat-card-image src="{{ image }}" alt="Product Image" />
+      <mat-card-content>
+        <p>
+          {{ description }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="flex-row space-around">
+        <button
+          mat-button
+          color="accent"
+          matSuffix
+          aria-label="Close collapsible"
+          (click)="collapsed = !collapsed"
+        >
+          Close
+        </button>
+        <button mat-icon-button color="accent" matSuffix aria-label="Delete">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>

@@ -1,1 +1,55 @@
-<p>shopping-cart works!</p>
+<div class="container">
+  <h1 class="title">Totally not a fake Cart</h1>
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Check out your cart!</ng-template>
+        <div *ngFor="let item of myCartItems">
+          <app-cart-item></app-cart-item>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Payment Stuff</ng-template>
+        <mat-form-field>
+          <div>
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder="Last name, First name"
+              formControlName="firstCtrl"
+              required
+            />
+          </div>
+        </mat-form-field>
+        <mat-form-field>
+          <div>
+            <mat-label>Address</mat-label>
+            <input
+              matInput
+              formControlName="secondCtrl"
+              placeholder="Ex. 1 Main St, New York, NY"
+              required
+            />
+          </div>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>The final confirmation</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

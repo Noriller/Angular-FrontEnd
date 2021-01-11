@@ -1,0 +1,79 @@
+
+.example-card {
+  max-width: 70%;
+  margin: auto
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+.mat-card-avatar{
+  width: 70px;
+  height: 70px;
+}
+
+::ng-deep .mat-card-header-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.values {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.space-around{
+  justify-content: space-around;
+}
+
+.flex-grow{
+  flex-grow: 1
+}
+
+.total{
+  flex-grow: 99;
+  align-items: center;
+}
+
+.quantity{
+  width: 30%;
+  margin-left: 10%;
+}
+
+.collapsible-content{
+  padding-top: 2em;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
+  margin: -0.25em;
+  padding-bottom: 0;
+}
+
+/* CSS for number input*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
