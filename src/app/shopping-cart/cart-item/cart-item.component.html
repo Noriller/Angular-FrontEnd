@@ -20,6 +20,7 @@
               max="99"
               [(ngModel)]="quantity"
               (change)="quantity ? null : tooltip.show()"
+              (change)="onQuantityChange()"
             />
             <div
               #tooltip="matTooltip"

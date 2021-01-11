@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTooltipDefaultOptions, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -18,17 +18,27 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 } )
 export class CartItemComponent {
 
-  name = 'name';
-  price = 10;
-  image = "https://material.angular.io/assets/img/examples/shiba1.jpg";
+  @Input()
+  name: string;
+  @Input()
+  price: number;
+  @Input()
+  image: string;
+  @Input()
+  description: string;
 
-  description = `The Shiba Inu is the smallest of the six original and distinct spitz
-  breeds of dog from Japan. A small, agile dog that copes very well with
-  mountainous terrain, the Shiba Inu was originally bred for hunting.`;
-
+  @Input()
   quantity = 1;
+
+  @Output()
+  quantityChange = new EventEmitter<number>();
+
   collapsed = true;
 
   constructor () { }
+
+  onQuantityChange (): void {
+    this.quantityChange.emit( this.quantity );
+  }
 
 }

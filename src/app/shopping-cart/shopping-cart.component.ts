@@ -24,7 +24,20 @@ export class ShoppingCartComponent implements OnInit {
       secondCtrl: [ '', Validators.required ]
     } );
 
-    this.myCartItems = await this.service.getProducts( 0, 10 );
+    this.myCartItems = ( await this.service.getProducts( 0, 10 ) ).map( x => {
+      x.quantity = Math.floor( Math.random() * 11 );
+      return x;
+    } );
   }
 
+  totalGetter () {
+    let totalValue = 0;
+    let totalItems = 0;
+    this.myCartItems.forEach( item => {
+      totalValue += item.productPrice * item.quantity;
+      totalItems += item.quantity;
+    } );
+
+    return { totalValue, totalItems };
+  }
 }

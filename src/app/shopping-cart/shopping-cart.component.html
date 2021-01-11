@@ -4,8 +4,16 @@
     <mat-step>
       <form>
         <ng-template matStepLabel>Check out your cart!</ng-template>
+        Items: {{totalGetter().totalItems | number:'.0'}}
+        Value: {{totalGetter().totalValue | currency}}
         <div *ngFor="let item of myCartItems">
-          <app-cart-item></app-cart-item>
+          <app-cart-item
+            name="{{item.productName}}"
+            price={{item.productPrice}}
+            image="{{item.image}}"
+            description="{{item.productDescription}}"
+            [(quantity)]="item.quantity"
+          ></app-cart-item>
         </div>
         <div>
           <button mat-button matStepperNext>Next</button>
