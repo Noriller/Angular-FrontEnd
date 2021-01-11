@@ -12,7 +12,7 @@ export class ShoppingCartComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  myCartItems: Product[];
+  myCartItems: Product[] = [];
 
   constructor ( private formBuilder: FormBuilder, private service: ProductListService ) { }
 
@@ -24,16 +24,17 @@ export class ShoppingCartComponent implements OnInit {
       secondCtrl: [ '', Validators.required ]
     } );
 
-    this.myCartItems = ( await this.service.getProducts( 0, 10 ) ).map( x => {
-      x.quantity = Math.floor( Math.random() * 11 );
-      return x;
-    } );
+    this.service.getProducts( 0, 10 )
+      .then( res => res.map( item => {
+        item.quantity = Math.floor( Math.random() * 11 );
+        this.myCartItems.push( item );
+      } ) );
   }
 
-  totalGetter () {
+  totalGetter (): { totalValue: number, totalItems: number; } {
     let totalValue = 0;
     let totalItems = 0;
-    this.myCartItems.forEach( item => {
+    this.myCartItems?.forEach( item => {
       totalValue += item.productPrice * item.quantity;
       totalItems += item.quantity;
     } );
