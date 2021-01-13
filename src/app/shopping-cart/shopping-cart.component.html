@@ -3,9 +3,18 @@
   <mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step>
       <form>
+        <div id="floater" #floater class="mat-mini-fab mat-accent">
+          <div>
+            Items: {{totalGetter().totalItems | number:'.0'}}
+          </div>
+          <div>
+            Value: {{totalGetter().totalValue | currency}}
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </div>
         <ng-template matStepLabel>Check out your cart!</ng-template>
-        Items: {{totalGetter().totalItems | number:'.0'}}
-        Value: {{totalGetter().totalValue | currency}}
         <div *ngFor="let item of myCartItems">
           <app-cart-item
             name="{{item.productName}}"
