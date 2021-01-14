@@ -51,7 +51,7 @@ export class ShoppingCartComponent implements OnInit {
     const winScrollTop = window.scrollY;
     // const winHeight = window.innerHeight;
     // const floaterHeight = floater.offsetHeight;
-    const fromTop = 100;
+    const fromTop = 150;
     const top = winScrollTop + fromTop;
     floater.style.top = top + 'px';
   }

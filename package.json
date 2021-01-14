@@ -1,13 +1,16 @@
 {
   "name": "angular-front-end",
   "version": "0.0.0",
+  "homepage": "https://noriller.github.io/Angular-FrontEnd",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "private": true,
   "dependencies": {
@@ -44,6 +47,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.2"
+    "typescript": "~4.0.2",
+    "gh-pages": "^3.1.0"
   }
 }
