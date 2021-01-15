@@ -17,12 +17,12 @@ import { NotFoundPageModule } from './not-found-page/not-found-page.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     TopBarModule,
     MaterialModule,
     WelcomeMessageModule,
     ProductListModule,
     ShoppingCartModule,
-    AppRoutingModule,
     NotFoundPageModule,
   ],
   providers: [],

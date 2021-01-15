@@ -6,7 +6,7 @@ import Product from './product';
 
 @Injectable()
 export class ProductListService {
-  private _jsonURL = './assets/fakeProducts.json';
+  private _jsonURL = 'assets/fakeProducts.json';
   pattern = new BehaviorSubject( '' );
 
   constructor ( private http: HttpClient ) {
