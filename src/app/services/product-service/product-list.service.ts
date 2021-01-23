@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import Product from './product';
+import Product from '../product';
 
 @Injectable()
 export class ProductListService {
@@ -19,6 +19,11 @@ export class ProductListService {
           const searchValue = this.pattern.value;
           return res.filter( ( value ) => this.filterValue( value, searchValue ) );
         } ) );
+  }
+
+  public async getProductById ( id: string ) {
+    const products = await ( this.getJSON() ).toPromise();
+    return products.find( p => p.id === id );
   }
 
   public getMaxSize () {

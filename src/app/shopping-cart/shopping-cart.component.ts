@@ -1,7 +1,8 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Product from '../product-list/product';
-import { ProductListService } from '../product-list/product-list.service';
+import { CartService } from '../services/cart-service/cart.service';
+import Product from '../services/product';
+import { ProductListService } from '../services/product-service/product-list.service';
 
 @Component( {
   selector: 'app-shopping-cart',
@@ -16,7 +17,10 @@ export class ShoppingCartComponent implements OnInit {
 
   @ViewChild( 'floater' ) floater: ElementRef;
 
-  constructor ( private formBuilder: FormBuilder, private service: ProductListService ) { }
+  constructor (
+    private formBuilder: FormBuilder,
+    private cart: CartService
+  ) { }
 
   async ngOnInit (): Promise<void> {
     this.firstFormGroup = this.formBuilder.group( {
@@ -26,11 +30,7 @@ export class ShoppingCartComponent implements OnInit {
       secondCtrl: [ '', Validators.required ]
     } );
 
-    this.service.getProducts( 0, 10 )
-      .then( res => res.map( item => {
-        item.quantity = Math.floor( Math.random() * 11 );
-        this.myCartItems.push( item );
-      } ) );
+    this.myCartItems = await this.cart.getItems();
   }
 
   totalGetter (): { totalValue: number, totalItems: number; } {

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Datasource, IDatasource } from 'ngx-ui-scroll';
-import { BehaviorSubject, from, fromEvent, Observable, Subject, Subscription } from 'rxjs';
+import { Datasource } from 'ngx-ui-scroll';
+import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { ProductListService } from './product-list.service';
+import { CartService } from '../services/cart-service/cart.service';
+import { ProductListService } from '../services/product-service/product-list.service';
 
 @Component( {
   selector: 'app-product-list',
@@ -17,11 +17,13 @@ export class ProductListComponent implements OnInit {
   subject = new Subject();
   inputValue = '';
 
-  constructor ( private service: ProductListService ) {
-  }
+  constructor (
+    private productList: ProductListService,
+    private cart: CartService
+  ) { }
 
   datasource = new Datasource( {
-    get: ( index, count ) => this.service.getProducts( index, count )
+    get: ( index, count ) => this.productList.getProducts( index, count )
     , settings: {
       windowViewport: true,
     }
@@ -30,6 +32,10 @@ export class ProductListComponent implements OnInit {
   async ngOnInit () {
     this.setInputSubject();
     await this.resetInfiniteScroll();
+  }
+
+  async addToCart ( id: string ) {
+    this.cart.addToCart( id );
   }
 
   setStep ( index: number ) {
@@ -74,7 +80,7 @@ export class ProductListComponent implements OnInit {
   }
 
   private async searchValue () {
-    this.service.pattern.next( this.inputValue );
+    this.productList.pattern.next( this.inputValue );
     await this.resetInfiniteScroll();
   }
 
@@ -84,7 +90,7 @@ export class ProductListComponent implements OnInit {
   }
 
   private async scrollSettings () {
-    this.maxSize = await this.service.getMaxSize();
+    this.maxSize = await this.productList.getMaxSize();
     return {
       windowViewport: true,
       startIndex: Number( 0 ),

@@ -4,6 +4,7 @@ import { MaterialModule } from '../material-module/material.module';
 import { ShoppingCartComponent } from './shopping-cart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartItemModule } from './cart-item/cart-item.module';
+import { CartService } from '../services/cart-service/cart.service';
 
 
 
@@ -16,6 +17,7 @@ import { CartItemModule } from './cart-item/cart-item.module';
     ReactiveFormsModule,
     CartItemModule
   ],
-  exports: [ ShoppingCartComponent ]
+  exports: [ ShoppingCartComponent ],
+  providers: [ CartService ]
 } )
 export class ShoppingCartModule { }

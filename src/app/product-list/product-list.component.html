@@ -78,7 +78,7 @@
                   {{ product.productPrice | currency }}
                 </div>
                 <div>
-                  <button mat-button color="accent">
+                  <button mat-button color="accent" (click)="addToCart(product.id)">
                     Add to Cart
                     <mat-icon>add_shopping_cart</mat-icon>
                   </button>
