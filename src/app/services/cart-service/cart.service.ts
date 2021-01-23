@@ -21,8 +21,6 @@ export class CartService {
       product.quantity = 1;
       this.items.push( product );
     }
-
-    return this.items;
   }
 
   async getItems () {
@@ -30,7 +28,9 @@ export class CartService {
   }
 
   async removeFromCart ( product: Product ) {
-    this.items.splice( this.items.indexOf( product ) );
-    return this.items;
+    const index = this.items.findIndex( p => p.id === product.id );
+    if ( index !== -1 ) {
+      this.items.splice( index, 1 );
+    }
   }
 }

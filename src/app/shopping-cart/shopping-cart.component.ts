@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CartService } from '../services/cart-service/cart.service';
 import Product from '../services/product';
@@ -9,7 +9,7 @@ import { ProductListService } from '../services/product-service/product-list.ser
   templateUrl: './shopping-cart.component.html',
   styleUrls: [ './shopping-cart.component.css' ],
 } )
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -21,6 +21,10 @@ export class ShoppingCartComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cart: CartService
   ) { }
+
+  ngOnDestroy (): void {
+    // Remove all 0 quantity items
+  }
 
   async ngOnInit (): Promise<void> {
     this.firstFormGroup = this.formBuilder.group( {

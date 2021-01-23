@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTooltipDefaultOptions, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+import { CartService } from 'src/app/services/cart-service/cart.service';
+import { ProductListService } from 'src/app/services/product-service/product-list.service';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 0,
@@ -19,6 +21,8 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 export class CartItemComponent {
 
   @Input()
+  id: string;
+  @Input()
   name: string;
   @Input()
   price: number;
@@ -35,10 +39,18 @@ export class CartItemComponent {
 
   collapsed = true;
 
-  constructor () { }
+  constructor (
+    private cart: CartService,
+    private productList: ProductListService
+  ) { }
 
   onQuantityChange (): void {
     this.quantityChange.emit( this.quantity );
+  }
+
+  async removeProduct ( id: string ) {
+    const product = await this.productList.getProductById( id );
+    this.cart.removeFromCart( product );
   }
 
 }

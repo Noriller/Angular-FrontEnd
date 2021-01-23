@@ -17,6 +17,7 @@
         <ng-template matStepLabel>Check out your cart!</ng-template>
         <div *ngFor="let item of myCartItems">
           <app-cart-item
+            id="{{item.id}}"
             name="{{item.productName}}"
             price={{item.productPrice}}
             image="{{item.image}}"
