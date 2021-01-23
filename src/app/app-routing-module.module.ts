@@ -5,8 +5,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
-  { path: '', component: ProductListComponent, pathMatch: 'full' },
-  { path: 'cart', component: ShoppingCartComponent, pathMatch: 'full' },
+  { path: '', component: ProductListComponent },
+  { path: 'cart', component: ShoppingCartComponent },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: NotFoundPageComponent }
 ];
