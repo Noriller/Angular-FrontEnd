@@ -13,7 +13,7 @@ export class CartService {
   ) { }
 
   async addToCart ( id: string ) {
-    const index = this.items.findIndex( p => p.id === id );
+    const index = this.getIndex( id );
     if ( index !== -1 ) {
       this.items[ index ].quantity += 1;
     } else {
@@ -27,10 +27,25 @@ export class CartService {
     return this.items;
   }
 
-  async removeFromCart ( product: Product ) {
-    const index = this.items.findIndex( p => p.id === product.id );
+  async removeFromCart ( id: string ) {
+    const index = this.getIndex( id );
     if ( index !== -1 ) {
       this.items.splice( index, 1 );
     }
+  }
+
+  async cleanCartByQuantity () {
+    const toClean = [];
+    this.items.forEach( p => {
+      if ( p.quantity === 0 ) {
+        toClean.push( p.id );
+      }
+    } );
+
+    toClean.forEach( id => this.removeFromCart( id ) );
+  }
+
+  private getIndex ( id: string ) {
+    return this.items.findIndex( p => p.id === id );
   }
 }

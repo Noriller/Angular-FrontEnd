@@ -23,7 +23,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnDestroy (): void {
-    // Remove all 0 quantity items
+    this.cart.cleanCartByQuantity();
   }
 
   async ngOnInit (): Promise<void> {

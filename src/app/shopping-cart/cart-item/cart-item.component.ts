@@ -49,8 +49,7 @@ export class CartItemComponent {
   }
 
   async removeProduct ( id: string ) {
-    const product = await this.productList.getProductById( id );
-    this.cart.removeFromCart( product );
+    this.cart.removeFromCart( id );
   }
 
 }
